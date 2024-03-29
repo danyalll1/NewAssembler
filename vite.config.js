@@ -13,11 +13,13 @@ export default {
         pages({dir: './resources/templates/pages', root: './resources'},),
     ],
     build: {
+        minify: true,
         rollupOptions: {
             input: [
                 './resources/templates/pages/*.{pug,html}',
                 './resources/styles/*.{css,scss,sass}',
                 './resources/scripts/**/*.{js,ts}',
+                './resources/assets/**/*.{svg,png,jpeg,jpg,webp,webm,mp4,mp3}'
             ],
             output: {
                 chunkFileNames: 'resources/scripts/[name].js',
