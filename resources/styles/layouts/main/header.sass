@@ -1,0 +1,30 @@
+@use '../../abstracts/variables' as *
+@use '../../abstracts/mixins' as *
+
+.header
+  position: fixed
+  width: 100%
+  border-bottom: 1px solid #585858
+  .container
+    background: #30353c
+
+  &__container
+    display: flex
+    align-items: center
+    gap: 40px
+
+    padding: 24px 0
+
+  &__item
+    color: white
+    cursor: pointer
+
+
+  &__logo
+    svg
+      max-width: 100px
+      max-height: 80px
+
+  &__menu
+    display: flex
+    gap: 32px

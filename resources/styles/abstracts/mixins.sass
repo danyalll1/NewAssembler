@@ -1,0 +1,62 @@
+@use './variables' as *
+
+=ff($_family, $_name, $_weight, $_style: normal)
+  font-family: '#{$_family}'
+  src: local('#{$_name}')
+  src: url('../assets/fonts/#{$_name}.ttf') format('ttf'), url('../assets/fonts/#{$_name}.ttf') format('ttf')
+  font-weight: $_weight
+  font-style: $_style
+  font-display: swap
+
+=font($_fontSize, $_lineHeight, $_fontWeight: 400, $_fontFamily: $font)
+  font: $_fontWeight #{$_fontSize}/#{$_lineHeight} $_fontFamily
+
+=screen($_size)
+  @media only screen and (max-width: #{$_size}px)
+    @content
+
+=mb-screen($_size)
+  @media only screen and (min-width: #{$_size}px)
+    @content
+
+=landscape()
+  @media screen and (max-height: 500px)
+    @content
+
+=txt-overflow($_strings)
+  display: -webkit-box
+  -webkit-line-clamp: $_strings
+  -webkit-box-orient: vertical
+  overflow: hidden
+
+=centering-x
+  position: absolute
+  left: 50%
+  transform: translateX(-50%)
+
+=centering-y
+  position: absolute
+  top: 50%
+  transform: translateY(-50%)
+
+=triangle($width, $direction, $color)
+  width: 0
+  height: 0
+  @if $direction == up
+    border-left: $width solid transparent
+    border-right: $width solid transparent
+    border-bottom: $width solid $color
+  @if $direction == down
+    border-left: $width solid transparent
+    border-right: $width solid transparent
+    border-top: $width solid $color
+  @if $direction == left
+    border-top: $width solid transparent
+    border-bottom: $width solid transparent
+    border-right: $width solid $color
+  @if $direction == right
+    border-top: $width solid transparent
+    border-bottom: $width solid transparent
+    border-left: $width solid $color
+
+
