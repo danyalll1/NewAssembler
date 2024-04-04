@@ -1,20 +1,25 @@
-import { fileURLToPath, URL } from 'url';
 import vituum from 'vituum'
+import { fileURLToPath, URL } from 'node:url'
 import pug from '@vituum/vite-plugin-pug'
 import pages from 'vituum/plugins/pages.js'
 import imports from "vituum/plugins/imports.js";
 
 export default {
+    resolve: {
+        alias: {
+            '@': fileURLToPath(new URL('./src', import.meta.url))
+        }
+    },
     base: './',
     plugins: [
         vituum(),
-        pug({root: '/resources'}),
+        pug({root: '/src',}),
         imports({
-            paths: ['/resources/styles/*/**', '/resources/scripts/*/**', '/resources/assets/*/**']
+            paths: ['/src/styles/*/**', '/src/scripts/*/**', '/src/assets/*/**']
         }),
         pages({
-            dir: './resources/templates/pages',
-            root: './resources',
+            dir: './src/templates/pages',
+            root: './src',
             normalizeBasePath: true
         },),
     ],
@@ -22,23 +27,17 @@ export default {
         minify: true,
         rollupOptions: {
             input: [
-                './resources/templates/pages/*.{pug,html}',
-                './resources/styles/*.{css,scss,sass}',
-                './resources/scripts/**/*.{js,ts}',
-                './resources/assets/**/*.{svg,png,jpeg,jpg,webp,webm,mp4,mp3}'
+                './src/templates/pages/*.{pug,html}',
+                './src/styles/*.{css,scss,sass}',
+                './src/scripts/**/*.{js,ts}',
+                './src/assets/**/*.{svg,png,jpeg,jpg,webp,webm,mp4,mp3}'
             ],
             output: {
-                chunkFileNames: 'resources/scripts/[name].js',
-                entryFileNames: 'resources/scripts/[name].js',
+                chunkFileNames: 'src/scripts/[name].js',
+                entryFileNames: 'src/scripts/[name].js',
 
             },
 
         }
     },
-    resolve: {
-        alias: [
-            {find: '@', replacement: fileURLToPath(new URL('/resources', import.meta.url))},
-        ]
-    }
-
 }
