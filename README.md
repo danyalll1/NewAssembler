@@ -1,1 +1,4 @@
-# NewAssembler
+# Vite + Pug + Sass boilerplate
+
+# steps:
+
