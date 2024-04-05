@@ -2,28 +2,38 @@
 @use '../../abstracts/mixins' as *
 
 .header
+  background-color: #30353c
   position: fixed
   width: 100%
   border-bottom: 1px solid #585858
-  .container
-    background: #30353c
+  max-height: 160px
+  color: white
+  z-index: 100
 
-  &__container
+  .container
+    display: flex
+    flex-direction: column
+
+  &__top
+    height: 64px
     display: flex
     align-items: center
-    gap: 40px
 
-    padding: 24px 0
+  &__logo
+    svg
+      height: 50px
+      width: 50px
+
+  &__bottom
+    display: flex
+    align-items: center
+    height: 96px
+    gap: 32px
+    justify-content: space-between
 
   &__item
     color: white
     cursor: pointer
-
-
-  &__logo
-    svg
-      max-width: 100px
-      max-height: 80px
 
   &__menu
     display: flex

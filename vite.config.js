@@ -33,11 +33,17 @@ export default {
                 './src/assets/**/*.{svg,png,jpeg,jpg,webp,webm,mp4,mp3}'
             ],
             output: {
-                chunkFileNames: 'src/scripts/[name].js',
-                entryFileNames: 'src/scripts/[name].js',
-
-            },
+                chunkFileNames: 'scripts/[name].js',
+                entryFileNames: 'scripts/[name].js',
+                assetFileNames: ({name}) => {
+                    if (!/\.css$/.test(name ?? '')) {
+                        return 'assets/[name]-[extname]';
+                    }
+                    return '[name]-[extname]'
+                },
+            }
 
         }
     },
+
 }

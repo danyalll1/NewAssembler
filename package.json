@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host --port 8000",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --host --port 8000"
   },
   "devDependencies": {
     "@vituum/vite-plugin-pug": "^1.1.0",
