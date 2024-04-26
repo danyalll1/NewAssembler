@@ -7,7 +7,7 @@ import imports from "vituum/plugins/imports.js";
 export default {
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
+            '@': fileURLToPath(new URL('./src', import.meta.url)),
         }
     },
     base: './',
@@ -15,7 +15,10 @@ export default {
         vituum(),
         pug({root: '/src',}),
         imports({
-            paths: ['/src/styles/*/**', '/src/scripts/*/**', '/src/assets/*/**']
+            filenamePattern: {
+                'src/styles': '+.sass'
+            },
+            paths: ['/src/styles/*/**', '/src/scripts/*/**', '/src/assets/*/**'],
         }),
         pages({
             dir: './src/templates/pages',
@@ -23,6 +26,9 @@ export default {
             normalizeBasePath: true
         },),
     ],
+    assets: {
+        fileExtensions: ['jpg', 'jpeg', 'png', 'gif', 'svg', 'ico', 'webp', 'mp4', 'webm', 'ogg', 'mp3', 'wav', 'flac', 'aac', 'woff', 'woff2', 'eot', 'ttf'],
+    },
     build: {
         minify: true,
         rollupOptions: {
@@ -30,16 +36,22 @@ export default {
                 './src/templates/pages/*.{pug,html}',
                 './src/styles/*.{css,scss,sass}',
                 './src/scripts/**/*.{js,ts}',
-                './src/assets/**/*.{svg,png,jpeg,jpg,webp,webm,mp4,mp3}'
+                './src/assets/**/*.{svg,png,jpeg,jpg,webp,webm,mp4,mp3,webp,webm,woof,woof2,ttf}',
             ],
             output: {
                 chunkFileNames: 'scripts/[name].js',
                 entryFileNames: 'scripts/[name].js',
                 assetFileNames: ({name}) => {
-                    if (!/\.css$/.test(name ?? '')) {
-                        return 'assets/[name]-[extname]';
+                    if (/\.css$/.test(name ?? '')) {
+                        return '[name][extname]';
                     }
-                    return '[name]-[extname]'
+                    if (/\.(webp|png|jpg|jpeg|gif|ico|svg)$/.test(name ?? '')) {
+                        return 'assets/img/[name][extname]';
+                    }
+                    if (/\.(woff|woff2|ttf)$/.test(name ?? '')) {
+                        return 'assets/fonts/[name][extname]';
+                    }
+                    return 'assets/[name][extname]'
                 },
             }
 
